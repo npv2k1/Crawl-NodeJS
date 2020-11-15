@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <title>Demo SocketIO</title>
+</head>
+
+<script>
+
+    // call server
+    var socket=io("http://localhost:8888") 
+    //var socket = io("http://192.168.1.19:8888") 
+    //lắng nghe phía client
+    socket.on("Server-send-data", function(data){
+        $("#noidung").append(data);
+    });
+
+    // chở tải  toàn bộ trang web rồi mới chạy function ở trong
+    $(document).ready(function() {
+        $("#mrA").click(function(){
+            socket.emit("Client-send-data","Hello World");
+        });
+        //alert("Hello Love")
+    });
+</script>
+<body>
+    <div id="mrA">
+        Click send
+    </div>
+
+   <h1 id="noidung">...........</h1>
+   <div>print()</div>
+
+</body>
+</html>
